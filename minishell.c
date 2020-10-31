@@ -18,7 +18,7 @@ correr el programa de la siguiente manera cat p4.c | wc -l.
 #define READ 0
 #define WRITE 1
 
-  void redireccion(**char argv)
+  void redireccion(char** commands)
   {
     int rc = fork();
     if (rc < 0)
@@ -31,15 +31,17 @@ correr el programa de la siguiente manera cat p4.c | wc -l.
     {
       // child: redirect standard output to a file
       close(STDOUT_FILENO);
+      char* nombrearchivo = commands[3];
+      char* comandoyargumentos = commands[1];
       
-      open("./p4.output", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+      open(nombrearchivo, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 
       // now exec "wc"...
       char *myargs[3];
-      myargs[0] = strdup("wc");   // program: wc (word count)
-      myargs[1] = strdup("file.txt"); // arg: file to count
-      myargs[2] = NULL;           // mark end of array
-      execvp(myargs[0], myargs);  // runs word count
+      myargs[0] = strdup(strtok(comandoyargumentos, " "));
+      myargs[1] = strdup(strtok(NULL, " "));
+      myargs[2] = NULL;
+      execvp(myargs[0], myargs);                   // runs word count
     }
     else
     {
@@ -115,7 +117,7 @@ int main(int argc, char *argv[])
 
   }
   else if (strcmp(strdup(argv[2]), ">") == 0) {
-    la_redireccion( );
+    redireccion(argv);
   }
 }
 
