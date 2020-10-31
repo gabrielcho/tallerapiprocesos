@@ -8,3 +8,4 @@ Hider Brandon Vargas Cordoba
 Gabriel de Jesus Arango Olaya
 Cristian Danilo Velasquez Olaya
 Juan Guillermo Loaiza Cardona
+Geider Andrés Montaño Salazar

@@ -97,9 +97,6 @@ void el_pipe( char *argv[] )
 
   default:
   {
-    printf("eeee  %s", strdup(argv[1]));
-    contador++;
-
     close(fd[READ]);
     dup2(fd[WRITE], STDOUT_FILENO);
 
@@ -110,7 +107,7 @@ void el_pipe( char *argv[] )
 
 int main(int argc, char *argv[])
 {
-  printf("%s", strdup(argv[2]));
+  
   if (strcmp(strdup(argv[2]), "|") == 0)
   {
     el_pipe( argv );
